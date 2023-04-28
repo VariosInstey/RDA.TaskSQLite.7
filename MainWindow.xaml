@@ -1,0 +1,301 @@
+﻿<Window x:Class="RDA.TaskSQLite._7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RDA.TaskSQLite._7"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        mc:Ignorable="d"
+        Background="Transparent"
+        FontFamily="Consolas"
+        Title="MainWindow" Height="500" Width="1200">
+    <Grid MouseDown="Grid_MouseDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Source="Images/main.jpg"
+               Grid.RowSpan="3"
+               Stretch="UniformToFill"/>
+        <ScrollViewer Background="White"
+                      Grid.Row="1"
+                      HorizontalScrollBarVisibility="Visible">
+            <DataGrid x:Name="TourDG"
+                  Grid.Row="1"
+                  Margin="5"
+                  AutoGenerateColumns="False"
+                  Background="LightGray"
+                  RowBackground="White"
+                  AlternatingRowBackground="White"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="Black"
+                  ColumnHeaderHeight="50"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeColumns="False"
+                  Effect="{StaticResource MaterialDesignElevationShadow16}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="Auto"
+                                    Header="№"
+                                    Binding="{Binding TourID}"/>
+                <DataGridTextColumn Width="Auto"
+                                    Header="Название тура"
+                                    Binding="{Binding TourName}"/>
+                <DataGridTextColumn Width="Auto"
+                                    Header="Описание тура"
+                                    Binding="{Binding TourDescription}"/>
+                <DataGridTextColumn Width="Auto"
+                                    Header="Цена тура"
+                                    Binding="{Binding TourPrice}"/>
+                <DataGridTextColumn Width="Auto"
+                                    Header="Кол-во туров"
+                                    Binding="{Binding TourCount}"/>
+                <DataGridTemplateColumn Header="Редактировать тур">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Click"
+                                    Foreground="White"
+                                    Background="Black">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="EventEdit"
+                                                             Margin="0 2 3 0"/>
+                                    <TextBlock Text="Редактировать"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Удалить тур">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Click_1"
+                                    Foreground="White"
+                                    Background="Black">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Remove"
+                                                             Margin="0 2 3 0"/>
+                                    <TextBlock Text="Удалить тур"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        </ScrollViewer>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Margin="5"
+                    BorderThickness="1"
+                    BorderBrush="White">
+                <StackPanel Margin="5">
+                    <Label Content="Добавить новый тур"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                    <Grid Name="NewTourGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Content="Название тура"
+                               Foreground="White"/>
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Text="{Binding TourName}"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Foreground="White"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Content="Описание тура"
+                               Foreground="White"/>
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="2"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourDescription}"
+                                 Foreground="White"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Content="Цена тура"
+                               Foreground="White"/>
+                        <TextBox Grid.Row="2"
+                                 Grid.Column="3"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourPrice}"
+                                 Foreground="White"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Content="Кол-во туров"
+                               Foreground="White"/>
+                        <TextBox Grid.Row="3"
+                                 Grid.Column="4"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourCount}"
+                                 Foreground="White"
+                                 TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Width="150"
+                                Margin="5"
+                                x:Name="BtnAddItem"
+                                Click="BtnAddItem_Click"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderBrush="White"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IndicatorBackground="Transparent"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="DatabaseAdd"
+                                                         Margin="0 0 3 0"/>
+                                <TextBlock Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <ScrollViewer Grid.Column="1">
+                <Border Grid.Column="1"
+                    Margin="5"
+                    Background="White"
+                    Opacity="0.4"
+                    BorderThickness="1"
+                    BorderBrush="White">
+                <StackPanel Margin="5">
+                    <Label Content="Редактировать тур"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                    <Grid Name="UpdateTourGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Content="Название тура"
+                               Foreground="Black"
+                               FontWeight="SemiBold"/>
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourName}"
+                                 Foreground="Black"
+                                 FontWeight="SemiBold"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Content="Описание тура"
+                               Foreground="Black"
+                               FontWeight="SemiBold"/>
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="2"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourDescription}"
+                                 Foreground="Black"
+                                 FontWeight="SemiBold"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Content="Цена тура"
+                               Foreground="Black"
+                                 FontWeight="SemiBold"/>
+                        <TextBox Grid.Row="2"
+                                 Grid.Column="3"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Text="{Binding TourPrice}"
+                                 Foreground="Black"
+                                 FontWeight="SemiBold"
+                                 TextWrapping="Wrap"/>
+
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Content="Кол-во туров"
+                              Foreground="Black"
+                                 FontWeight="SemiBold"/>
+                        <TextBox Grid.Row="3"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                 Grid.Column="4"
+                                 Text="{Binding TourCount}"
+                                 Foreground="Black"
+                                 FontWeight="SemiBold"
+                                 TextWrapping="Wrap"/>
+
+                        <Button Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Width="150"
+                                Margin="5"
+                                x:Name="BtnEditItem"
+                                Click="BtnEditItem_Click"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Black"
+                                FontWeight="SemiBold"
+                                Background="Transparent"
+                                BorderBrush="Black"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IndicatorBackground="Black"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="EventEdit"
+                                                         Margin="0 0 3 0"/>
+                                <TextBlock Text="Редактировать"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Window>
